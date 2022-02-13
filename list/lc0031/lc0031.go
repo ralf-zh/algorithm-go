@@ -1,7 +1,6 @@
 package lc0031
 
 import (
-	"fmt"
 	"sort"
 )
 
@@ -13,7 +12,6 @@ func nextPermutation(nums []int) {
 				sort.Slice(nums[n+1:], func(i_, j_ int) bool {
 					return nums[n+1+i_] < nums[n+1+j_]
 				})
-				fmt.Println(n, j)
 				return
 			}
 		}
