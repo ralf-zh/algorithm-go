@@ -7,7 +7,7 @@ func Convert(pRootOfTree *TreeNode) *TreeNode {
 	var stk stack
 	stk.push(pRootOfTree)
 
-	for !stk.empty() {
+	for !stk.empty() { // TODO
 		nd := stk.pop()
 		nd.Left = prev
 		if prev == nil {
