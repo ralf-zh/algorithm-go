@@ -4,36 +4,29 @@ func Convert(pRootOfTree *TreeNode) *TreeNode {
 	// write code here
 	var prev, head *TreeNode
 
-	var stk stack
-	stk.push(pRootOfTree)
+	var stk = make(stack, 0, 100000)
+	var nd = pRootOfTree
 
-	for !stk.empty() { // TODO
-		nd := stk.pop()
-		nd.Left = prev
-		if prev == nil {
-			head = nd
+	for !stk.empty() || nd != nil { // TODO
+		if nd != nil {
+			stk.push(nd)
+			nd = nd.Left
 		} else {
-			prev.Right = nd
+			nd = stk.pop()
+
+			// visitor begin
+			nd.Left = prev
+			if prev == nil {
+				head = nd
+			} else {
+				prev.Right = nd
+			}
+			prev = nd
+			// visitor end
+
+			nd = nd.Right
 		}
 	}
-	var traverse func(root *TreeNode)
-	traverse = func(root *TreeNode) {
-		if root == nil {
-			return
-		}
-		traverse(root.Left)
-
-		root.Left = prev
-		if prev != nil {
-			prev.Right = root
-		} else {
-			head = root
-		}
-		prev = root
-
-		traverse(root.Right)
-	}
-	traverse(pRootOfTree)
 	prev.Right = head
 
 	return head
